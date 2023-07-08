@@ -20,9 +20,11 @@ router.get('/refresh', authController.refresh);
 // blog
 // crud
 // create
+// router.post('/blog', auth, blogController.create);
 router.post('/blog', auth, blogController.create);
 // read all blogs
-router.get('/blog/all', auth, blogController.getAll);
+// router.get('/blog/all', auth, blogController.getAll);
+router.get('/blog/all', blogController.getAll);
 // read blog by id
 router.get('/blog/:id', auth, blogController.getById);
 // update

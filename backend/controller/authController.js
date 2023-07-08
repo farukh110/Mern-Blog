@@ -167,7 +167,7 @@ const authController = {
             );
 
         } catch (error) {
-            next(error);
+            return next(error);
         }
 
         res.cookie('accessToken', accessToken, {

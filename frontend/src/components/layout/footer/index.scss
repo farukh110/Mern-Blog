@@ -1,0 +1,44 @@
+.footer {
+    background: #E8E8EA;
+    width: 100%;
+
+    h2 {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .footer_menu {
+        list-style: none;
+        padding-left: 0px;
+
+        li {
+            a {
+                text-decoration: none;
+                color: #3B3C4A;
+                transition: all 0.4s;
+                line-height: 2.2;
+
+                &:hover {
+                    color: gray;
+                }
+            }
+        }
+    }
+
+    .sep {
+        border-bottom: 1px solid #DCDDDF;
+        width: 100%;
+    }
+
+    .footer_horizontal-menu {
+        list-style: none;
+
+        li {
+            display: inline-block;
+
+            a {
+                font-size: 16px;
+            }
+        }
+    }
+}

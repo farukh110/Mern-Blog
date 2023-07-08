@@ -1,0 +1,31 @@
+.home-section {
+
+    h1 {
+        font-weight: bold;
+        font-size: 35px;
+    }
+
+    .article-content {
+        border: 1px solid #E8E8EA;
+        border-radius: 12px;
+
+        .thumb {
+            border-radius: 6px;
+            height: 240px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .title {
+            color: #181A2A;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #97989F;
+        }
+
+    }
+
+}
