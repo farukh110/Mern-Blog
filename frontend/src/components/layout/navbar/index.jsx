@@ -14,17 +14,8 @@ const Navbar = () => {
     const handleLogout = async () => {
         await logout();
         dispatch(resetUser());
-        localStorage.removeItem('user');
+        // localStorage.removeItem('user');
     };
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-            dispatch(setUser(user));
-        }
-    }, [dispatch]);
-
 
     return (
         <>

@@ -144,9 +144,9 @@ export const postComment = async (data) => {
         return error;
     }
     return res;
-}
+};
 
-export const deleteComment = async (id) => {
+export const deleteBlog = async (id) => {
 
     let res;
 
@@ -158,4 +158,18 @@ export const deleteComment = async (id) => {
         return error;
     }
     return res;
-}
+};
+
+export const updateBlogData = async (data) => {
+
+    let res;
+
+    try {
+
+        res = await api.put('/blog', data);
+
+    } catch (error) {
+        return error;
+    }
+    return res;
+};

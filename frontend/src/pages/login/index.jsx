@@ -32,7 +32,7 @@ const Login = () => {
             };
 
             // Save user data in local storage
-            localStorage.setItem('user', JSON.stringify(user));
+            // localStorage.setItem('user', JSON.stringify(user));
 
             dispatch(setUser(user));
 
