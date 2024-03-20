@@ -29,7 +29,7 @@ const blogController = {
 
         const { title, author, content, photo } = req.body;
 
-        const buffer = Buffer.from(photo.replace(/^data:image\/(png|jpg|jpeg);base64, /, ''), 'base64');
+        const buffer = Buffer.from(photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ''), 'base64');
 
         const imagePath = `${Date.now()}-${author}.png`;
 
@@ -125,7 +125,7 @@ const blogController = {
             content: Joi.string().required(),
             author: Joi.string().regex(mongodbIdPattern).required(),
             blogId: Joi.string().regex(mongodbIdPattern).required(),
-            photo: Joi.string()
+            photo: Joi.string(),
         });
 
         const { error } = updateBlogSchema.validate(req.body);
@@ -152,7 +152,7 @@ const blogController = {
 
             fs.unlinkSync(`storage/${previousPhoto}`);
 
-            const buffer = Buffer.from(photo.replace(/^data:image\/(png|jpg|jpeg);base64, /, ''), 'base64');
+            const buffer = Buffer.from(photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ''), 'base64');
 
             const imagePath = `${Date.now()}-${author}.png`;
 

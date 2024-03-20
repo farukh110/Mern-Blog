@@ -17,7 +17,7 @@ class JWTService {
     }
 
     static verifyRefreshToken(token) {
-        return jwt.refresh(token, REFRESH_TOKEN_SECRET);
+        return jwt.verify(token, REFRESH_TOKEN_SECRET);
     }
 
     static async storeRefreshToken(token, userId) {

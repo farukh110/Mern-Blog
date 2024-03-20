@@ -4,7 +4,6 @@ const User = require('../models/user');
 const UserDTO = require('../dto/user');
 const JWTServices = require('../services/JWTService');
 const RefreshToken = require('../models/token');
-const JWTService = require('../services/JWTService');
 
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,25}$/;
 
@@ -62,7 +61,8 @@ const authController = {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        let accessToken, refreshToken;
+        let accessToken;
+        let refreshToken;
 
         let user;
 
@@ -91,12 +91,12 @@ const authController = {
 
         res.cookie('accessToken', accessToken, {
             maxAge: 1000 * 60 * 60 * 24,
-            httpOnly: true
+            httpOnly: true,
         });
 
         res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24,
-            httpOnly: true
+            httpOnly: true,
         });
 
         const userDto = new UserDTO(user);
@@ -130,8 +130,8 @@ const authController = {
 
                 const error = {
                     status: 401,
-                    message: 'Invalid username'
-                }
+                    message: 'Invalid username',
+                };
 
                 return next(error);
             }
@@ -141,8 +141,8 @@ const authController = {
             if (!match) {
                 const error = {
                     status: 401,
-                    message: 'Invalid password'
-                }
+                    message: 'Invalid password',
+                };
 
                 return next(error);
             }
@@ -159,9 +159,10 @@ const authController = {
 
         try {
 
-            await RefreshToken.updateOne({
-                _id: user._id
-            },
+            await RefreshToken.updateOne(
+                {
+                    _id: user._id
+                },
                 { token: refreshToken },
                 { upsert: true }
             );
@@ -173,13 +174,13 @@ const authController = {
         res.cookie('accessToken', accessToken, {
 
             maxAge: 1000 * 60 * 60 * 24,
-            httpOnly: true
+            httpOnly: true,
         });
 
         res.cookie('refreshToken', refreshToken, {
 
             maxAge: 1000 * 60 * 60 * 24,
-            httpOnly: true
+            httpOnly: true,
         });
 
         const userDto = new UserDTO(user);
@@ -221,14 +222,14 @@ const authController = {
 
         try {
 
-            id = JWTService.verifyRefreshToken(originalRefreshToken)._id;
+            id = JWTServices.verifyRefreshToken(originalRefreshToken)._id;
 
         } catch (e) {
 
             const error = {
 
                 status: 401,
-                message: 'Unauthorized'
+                message: 'Unauthorized',
             };
 
             return next(error);
@@ -255,20 +256,20 @@ const authController = {
 
         try {
 
-            const accessToken = JWTService.signAccessToken({ _id: id }, '30m');
+            const accessToken = JWTServices.signAccessToken({ _id: id }, '30m');
 
-            const refreshToken = JWTService.signRefreshToken({ _id: id }, '60m');
+            const refreshToken = JWTServices.signRefreshToken({ _id: id }, '60m');
 
             await RefreshToken.updateOne({ _id: id }, { token: refreshToken });
 
             res.cookie('accessToken', accessToken, {
                 maxAge: 1000 * 60 * 60 * 24,
-                httpOnly: true
+                httpOnly: true,
             });
 
             res.cookie('refreshToken', refreshToken, {
                 maxAge: 1000 * 60 * 60 * 24,
-                httpOnly: true
+                httpOnly: true,
             });
 
         } catch (e) {

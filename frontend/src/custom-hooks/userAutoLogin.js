@@ -3,9 +3,9 @@ import { setUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-const userAutoLogin = () => {
-
+function useAutoLogin() {
     const [loading, setLoading] = useState(true);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -31,7 +31,13 @@ const userAutoLogin = () => {
                     dispatch(setUser(user));
                 }
             } catch (error) {
-                //
+                // Handle errors
+                if (error.response && error.response.status === 401) {
+                    // Unauthorized, user needs to log in again
+                    console.log("User not authenticated or token expired.");
+                } else {
+                    console.log("An error occurred while auto-login:", error.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -41,4 +47,4 @@ const userAutoLogin = () => {
     return loading;
 }
 
-export default userAutoLogin;
+export default useAutoLogin;
